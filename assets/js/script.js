@@ -19,7 +19,7 @@ function writePassword() {
 function generatePassword() {
     var pwdCharset = "";
     var pwdResult = "";
-
+    var pwdConfirmMsg = "";
     //Check if length is a number; If so continue
     var pwdLength = prompt("Choose a length of at least 8 characters and no more than 128 characters");
     if (isNaN(pwdLength)) {
@@ -28,34 +28,44 @@ function generatePassword() {
     } else {
         //Check if password length is bettwen 8 to 128
         if (pwdLength >= 8 && pwdLength <= 128) {
+            pwdConfirmMsg += ('Password Length is: ' + pwdLength + '\n');
             var pwdUppers = confirm("Do you want to include uppercase?");
             if (pwdUppers) {
                 pwdCharset += CharSets.uppers;
+                pwdConfirmMsg += ('Include Uppercase: ' + pwdUppers + '\n');
             };
 
             var pwdLowers = confirm("Do you want to include lowercase?");
             if (pwdLowers) {
                 pwdCharset += CharSets.lowers;
+                pwdConfirmMsg += ('Include Lowercase: ' + pwdLowers + '\n');
             };
 
             var pwdNumbers = confirm("Do you want to include numeric?");
             if (pwdNumbers) {
                 pwdCharset += CharSets.numbers;
+                pwdConfirmMsg += ('Include Numberic: ' + pwdNumbers + '\n');
             };
 
             var pwdSpecials = confirm("Do you want to include special characters?");
             if (pwdSpecials) {
                 pwdCharset += CharSets.symbols;
+                pwdConfirmMsg += ('Include Special Characters: ' + pwdSpecials + '\n');
             };
 
-            // Validating at least one character type need to be selected
-            if (pwdLength && (pwdUppers || pwdLowers || pwdNumbers || pwdSpecials)) {
-                for (var i = 0; i <= pwdLength; i++) {
-                    pwdResult += pwdCharset[Math.floor(Math.random() * pwdCharset.length)];
+            var pwdConfirm = confirm(pwdConfirmMsg);
+            if (pwdConfirm) {
+                // Validating at least one character type need to be selected
+                if (pwdLength && (pwdUppers || pwdLowers || pwdNumbers || pwdSpecials)) {
+                    for (var i = 0; i <= pwdLength; i++) {
+                        pwdResult += pwdCharset[Math.floor(Math.random() * pwdCharset.length)];
+                    }
+                    return pwdResult;
+                } else {
+                    alert("At least one character type should be selected");
+                    return pwdResult;
                 }
-                return pwdResult;
             } else {
-                alert("At least one character type should be selected");
                 return pwdResult;
             }
         } else {
