@@ -25,7 +25,7 @@ function generatePassword() {
     if (isNaN(pwdLength)) {
         alert("Invalid Input! \nPlease enter number between 8 to 128 only");
         return pwdResult;
-    } else {
+    } else if (pwdLength.length > 0) {
         //Check if password length is bettwen 8 to 128
         if (pwdLength >= 8 && pwdLength <= 128) {
             pwdConfirmMsg += ('Password Length is: ' + pwdLength + '\n');
@@ -69,9 +69,12 @@ function generatePassword() {
                 return pwdResult;
             }
         } else {
-            alert(pwdLength + " is not between 8 to 128\nPlease enter number between 8 to 128 only");
+            alert("");
             return pwdResult;
         }
+    } else {
+        alert("Password length cannot be empty");
+        return pwdResult;
     }
 
 }
